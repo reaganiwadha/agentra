@@ -1,0 +1,132 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=Unbounded:wght@400;600;700&display=swap");
+
+@layer base {
+	:root {
+		color-scheme: light;
+		--app-bg: #f6f7fb;
+		--app-ink: #0b1120;
+		--app-muted: #64748b;
+		--app-border: #e2e8f0;
+		--app-surface: #ffffff;
+		--app-surface-2: #f1f5f9;
+		--app-accent: #0ea5e9;
+		--app-accent-ink: #0b1220;
+	}
+
+	html {
+		font-family: "Space Grotesk", "Newsreader", "Segoe UI", sans-serif;
+		color: var(--app-ink);
+		background: var(--app-bg);
+	}
+
+	body {
+		min-height: 100vh;
+		background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+	}
+}
+
+@layer components {
+	.app-shell {
+		min-height: 100vh;
+	}
+
+	.surface-card {
+		background: var(--app-surface);
+		border: 1px solid var(--app-border);
+		box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+		border-radius: 18px;
+	}
+
+	.surface-soft {
+		background: var(--app-surface-2);
+		border: 1px solid rgba(148, 163, 184, 0.3);
+		border-radius: 16px;
+	}
+
+	.nav-chip {
+		border-radius: 8px;
+		padding: 0.55rem 0.75rem;
+		font-size: 0.875rem;
+		font-weight: 500;
+		color: #94a3b8;
+		background: transparent;
+		transition: all 0.15s ease;
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.nav-chip:hover {
+		background: rgba(255, 255, 255, 0.05);
+		color: #f8fafc;
+	}
+
+	.nav-chip-active {
+		background: rgba(14, 165, 233, 0.12);
+		color: #38bdf8;
+		font-weight: 600;
+	}
+
+	.brand-mark {
+		font-family: "Unbounded", "Space Grotesk", sans-serif;
+		letter-spacing: -0.03em;
+		font-size: 1.1rem;
+	}
+
+	.brand-chip {
+		padding: 0.4rem 0.75rem;
+		border-radius: 8px;
+		background: linear-gradient(135deg, #0ea5e9 0%, #22d3ee 45%, #34d399 100%);
+		color: #0b1220;
+		font-weight: 800;
+		text-transform: uppercase;
+		font-size: 0.75rem;
+		letter-spacing: 0.05em;
+	}
+
+	.data-label {
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: var(--app-muted);
+	}
+
+	.input-base {
+		width: 100%;
+		border-radius: 12px;
+		border: 1px solid var(--app-border);
+		background: #fff;
+		padding: 0.65rem 0.85rem;
+		font-size: 0.95rem;
+		transition: border-color 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.input-base:focus {
+		outline: none;
+		border-color: rgba(14, 165, 233, 0.7);
+		box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.18);
+	}
+
+	.btn-primary {
+		border-radius: 12px;
+		background: #0f172a;
+		color: #f8fafc;
+		font-weight: 700;
+		padding: 0.6rem 1.1rem;
+		transition: transform 0.15s ease, box-shadow 0.15s ease;
+	}
+
+	.btn-primary:hover {
+		transform: translateY(-1px);
+		box-shadow: 0 10px 24px rgba(15, 23, 42, 0.2);
+	}
+
+	.btn-secondary {
+		border-radius: 12px;
+		border: 1px solid var(--app-border);
+		background: #fff;
+		padding: 0.6rem 1.1rem;
+		font-weight: 600;
+	}
+}

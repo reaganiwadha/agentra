@@ -1,0 +1,33 @@
+{
+  "samples": [
+    {
+      "id": "gull_portrait",
+      "name": "Seagull portrait",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg",
+      "expected_any_tags": [
+        "bird",
+        "seagull",
+        "animal"
+      ],
+      "expected_description_any_contains": [
+        "bird",
+        "seagull"
+      ]
+    },
+    {
+      "id": "tiger_portrait",
+      "name": "Tiger portrait",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/5/56/Tiger.50.jpg",
+      "expected_any_tags": [
+        "tiger",
+        "cat",
+        "animal"
+      ],
+      "expected_description_any_contains": [
+        "tiger",
+        "cat"
+      ]
+    }
+  ]
+}
+

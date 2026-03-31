@@ -1,0 +1,17 @@
+{
+  "samples": [
+    {
+      "id": "sports_highlight_query",
+      "name": "Sports Highlight Query",
+      "input_text": "crowd cheering after a football goal in a packed stadium",
+      "expected_vector_min_length": 3
+    },
+    {
+      "id": "interview_query",
+      "name": "Interview Query",
+      "input_text": "single person interview close-up indoors with dialogue",
+      "expected_vector_min_length": 3
+    }
+  ]
+}
+

@@ -1,0 +1,22 @@
+# Go
+agentra-backend/agentra
+agentra-backend/*.exe
+
+# Node / Bun
+agentra-client/node_modules/
+agentra-client/.svelte-kit/
+agentra-client/build/
+agentra-client/.output/
+
+# Env files (keep .env.example files)
+agentra-backend/.env
+agentra-client/.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp

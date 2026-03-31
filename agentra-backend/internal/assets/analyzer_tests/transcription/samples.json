@@ -1,0 +1,20 @@
+{
+  "samples": [
+    {
+      "id": "digit_zero",
+      "name": "FSDD digit zero",
+      "url": "https://raw.githubusercontent.com/Jakobovski/free-spoken-digit-dataset/master/recordings/0_george_0.wav",
+      "expected_contains": [
+        "zero"
+      ]
+    },
+    {
+      "id": "digit_seven",
+      "name": "FSDD digit seven",
+      "url": "https://raw.githubusercontent.com/Jakobovski/free-spoken-digit-dataset/master/recordings/7_jackson_3.wav",
+      "expected_contains": [
+        "seven"
+      ]
+    }
+  ]
+}
