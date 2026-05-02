@@ -19,14 +19,25 @@ type KeyframeInfo struct {
 // ExtractAudio extracts the audio track as mono 16kHz MP3 into a temp file.
 // The caller is responsible for removing the returned file.
 func ExtractAudio(ctx context.Context, videoPath string) (string, error) {
-	out := filepath.Join(os.TempDir(), fmt.Sprintf("agentra-audio-%d.mp3", os.Getpid()))
+	outFile, err := os.CreateTemp("", "agentra-audio-*.mp3")
+	if err != nil {
+		return "", err
+	}
+	out := outFile.Name()
+	_ = outFile.Close()
+
 	cmd := exec.CommandContext(ctx, "ffmpeg", "-y",
 		"-i", videoPath,
 		"-vn", "-ac", "1", "-ar", "16000", "-c:a", "mp3", "-b:a", "64k",
 		out,
 	)
 	if b, err := cmd.CombinedOutput(); err != nil {
+		_ = os.Remove(out)
 		return "", fmt.Errorf("ffmpeg audio: %w: %s", err, b)
+	}
+	if err := requireOutputFile(out, "ffmpeg audio"); err != nil {
+		_ = os.Remove(out)
+		return "", err
 	}
 	return out, nil
 }
@@ -188,7 +199,13 @@ func fallbackTimestamps(maxFrames int) []float64 {
 // ExtractThumbnail extracts a single JPEG frame at the given offset (seconds).
 // The caller is responsible for removing the returned file.
 func ExtractThumbnail(ctx context.Context, videoPath string, offsetSec int) (string, error) {
-	out := filepath.Join(os.TempDir(), fmt.Sprintf("agentra-thumb-%d.jpg", os.Getpid()))
+	outFile, err := os.CreateTemp("", "agentra-thumb-*.jpg")
+	if err != nil {
+		return "", err
+	}
+	out := outFile.Name()
+	_ = outFile.Close()
+
 	cmd := exec.CommandContext(ctx, "ffmpeg", "-y",
 		"-ss", fmt.Sprintf("%d", offsetSec),
 		"-i", videoPath,
@@ -200,9 +217,25 @@ func ExtractThumbnail(ctx context.Context, videoPath string, offsetSec int) (str
 		out,
 	)
 	if b, err := cmd.CombinedOutput(); err != nil {
+		_ = os.Remove(out)
 		return "", fmt.Errorf("ffmpeg thumbnail: %w: %s", err, b)
 	}
+	if err := requireOutputFile(out, "ffmpeg thumbnail"); err != nil {
+		_ = os.Remove(out)
+		return "", err
+	}
 	return out, nil
+}
+
+func requireOutputFile(path string, label string) error {
+	info, err := os.Stat(path)
+	if err != nil {
+		return fmt.Errorf("%s output missing: %w", label, err)
+	}
+	if info.Size() == 0 {
+		return fmt.Errorf("%s output is empty", label)
+	}
+	return nil
 }
 
 func runFFmpeg(ctx context.Context, args ...string) ([]byte, error) {
