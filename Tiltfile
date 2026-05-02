@@ -8,7 +8,6 @@
 #
 # Usage: tilt up
 
-POSTGRES_CONTAINER = 'agentra-dev-postgres'
 POSTGRES_USER = 'postgres'
 POSTGRES_PASSWORD = 'postgres'
 POSTGRES_DB = 'agentra'
@@ -25,12 +24,15 @@ POSTGRES_ENV_BAT = 'set "POSTGRES_HOST=localhost" && set "POSTGRES_PORT=%s" && s
     POSTGRES_PASSWORD,
     POSTGRES_DB,
 )
+CLIENT_ENV_VARS = {
+    'PUBLIC_API_URL': 'http://localhost:8080',
+    'PUBLIC_APP_NAME': 'Agentra',
+}
 
 docker_compose(encode_yaml({
     'services': {
         'postgres': {
             'image': 'pgvector/pgvector:pg16',
-            'container_name': POSTGRES_CONTAINER,
             'environment': {
                 'POSTGRES_USER': POSTGRES_USER,
                 'POSTGRES_PASSWORD': POSTGRES_PASSWORD,
@@ -86,6 +88,7 @@ local_resource(
     'client',
     serve_cmd='cd agentra-client && bun run dev',
     serve_cmd_bat='cd agentra-client && bun run dev',
+    serve_env=CLIENT_ENV_VARS,
     deps=[
         'agentra-client/src',
         'agentra-client/static',
